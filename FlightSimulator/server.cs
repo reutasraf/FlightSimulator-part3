@@ -46,7 +46,7 @@ namespace flightSimulator
         }
         public void setData()
         {
-            
+
             this.pathRead.Add("/instrumentation/airspeed-indicator/indicated-speed-kt", 0);
             this.pathRead.Add("/instrumentation/altimeter/indicated-altitude-ft", 0);
             this.pathRead.Add("/instrumentation/altimeter/pressure-alt-ft", 0);

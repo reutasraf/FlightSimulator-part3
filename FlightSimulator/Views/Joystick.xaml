@@ -7,6 +7,8 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Canvas  x:Name="Base" Margin="0" Width="340" Height="340">
+            <Slider  Maximum="1" Minimum="-1" ValueChanged="Slider_ValueChanged" Background="White" TickFrequency ="0.2" TickPlacement="BottomRight" RenderTransformOrigin="0.228,1.055" Height="35" Canvas.Left="-119" Canvas.Top="345" Width="553"/>
+            <Slider  Maximum="1" Minimum="-1" ValueChanged="Slider_ValueChanged" Background="White" Orientation ="Vertical" TickPlacement="BottomRight" TickFrequency ="0.2" Height="340" Canvas.Left="-144" Width="39" RenderTransformOrigin="0.693,0.517"/>
             <Ellipse HorizontalAlignment="Left" Height="340" VerticalAlignment="Top" Width="340">
                 <Ellipse.Fill>
                     <RadialGradientBrush>
