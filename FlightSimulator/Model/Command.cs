@@ -3,13 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System;
+using System.Net.Sockets;
+using System.Text;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace flightSimulator
+
+
+namespace FlightSimulator.Model
 {
-    using System;
-    using System.Net.Sockets;
-    using System.Text;
-    public class client
+
+    public class Command
     {
         private TcpClient client1;
         private const int portNum = 5400;
@@ -36,11 +41,12 @@ namespace flightSimulator
 
             listener.Stop();
 
-            return ;
+            return;
         }
-        public void getInfo(string path)
+
+        public void setInfo(string path)
         {
-            byte[] byteTime = Encoding.ASCII.GetBytes(DateTime.Now.ToString());
+            byte[] byteTime = Encoding.ASCII.GetBytes(DateTime.Now.ToString(path));
 
             try
             {

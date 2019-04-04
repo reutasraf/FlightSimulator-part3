@@ -1,14 +1,24 @@
 ﻿<UserControl x:Class="FlightSimulator.Views.Joystick"
+             
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             xmlns:vv="clr-namespace:FlightSimulator.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" Height="473.716">
+
     <Grid>
-        <Canvas  x:Name="Base" Margin="0" Width="340" Height="340">
-            <Slider  Maximum="1" Minimum="-1" ValueChanged="Slider_ValueChanged" Background="White" TickFrequency ="0.2" TickPlacement="BottomRight" RenderTransformOrigin="0.228,1.055" Height="35" Canvas.Left="-119" Canvas.Top="345" Width="553"/>
-            <Slider  Maximum="1" Minimum="-1" ValueChanged="Slider_ValueChanged" Background="White" Orientation ="Vertical" TickPlacement="BottomRight" TickFrequency ="0.2" Height="340" Canvas.Left="-144" Width="39" RenderTransformOrigin="0.693,0.517"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="111*"/>
+            <RowDefinition Height="47*"/>
+        </Grid.RowDefinitions>
+        
+        <Canvas  x:Name="Base" Margin="221,36,239,97.6" Width="340" Height="340" Grid.RowSpan="2">
+            <Slider Name="slider1"  Maximum="1" Minimum="-1" ValueChanged="Slider_ValueChanged" Background="White" TickFrequency ="0.2" TickPlacement="BottomRight" RenderTransformOrigin="0.228,1.055" Height="35" Canvas.Left="-119" Canvas.Top="345" Width="553"/>
+            <Label Name="lblTest" Content="{Binding ElementName=slider1, Path=Value}"/>
+            
+            <Slider Name="slider2" Maximum="1" Minimum="-1" ValueChanged="Slider_ValueChanged" Background="White" Orientation ="Vertical" TickPlacement="BottomRight" TickFrequency ="0.2" Height="340" Canvas.Left="-144" Width="39" RenderTransformOrigin="0.693,0.517"/>
+            <Label Name="lblTest2" Content="{Binding ElementName=slider2, Path=Value}"/>
             <Ellipse HorizontalAlignment="Left" Height="340" VerticalAlignment="Top" Width="340">
                 <Ellipse.Fill>
                     <RadialGradientBrush>
