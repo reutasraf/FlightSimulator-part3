@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using FlightSimulator.Model;
 
 namespace FlightSimulator
 {
@@ -21,7 +22,22 @@ namespace FlightSimulator
     {
         public MainWindow()
         {
+            Console.WriteLine("connect");
             InitializeComponent();
+           // Command c = new Command();
+           // c.connectServer();
+           // Server s = new Server();
+            //s.connectServer();
+        }
+
+        private void Joystick_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Auto_Loaded(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

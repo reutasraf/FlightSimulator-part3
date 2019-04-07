@@ -14,14 +14,18 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using FlightSimulator.ViewModels;
 
 namespace FlightSimulator.Views
 {
+    
     /// <summary>
     /// Interaction logic for Joystick.xaml
     /// </summary>
     public partial class Joystick : UserControl
+        
     {
+        private viewModelJoiystick vm;
         /// <summary>Current Aileron</summary>
         public static readonly DependencyProperty AileronProperty =
             DependencyProperty.Register("Aileron", typeof(double), typeof(Joystick),null);
@@ -112,6 +116,7 @@ namespace FlightSimulator.Views
         public Joystick()
         {
             InitializeComponent();
+            this.vm = new viewModelJoiystick();
 
             Knob.MouseLeftButtonDown += Knob_MouseLeftButtonDown;
             Knob.MouseLeftButtonUp += Knob_MouseLeftButtonUp;
@@ -162,15 +167,21 @@ namespace FlightSimulator.Views
 
         }
 
-        private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-
-        }
-
         private void Knob_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             Knob.ReleaseMouseCapture();
             centerKnob.Begin();
+        }
+
+        
+        private void SliderRudder_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            vm.SaveSettings1(e);
+        }
+
+        private void SliderThrottle_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+
         }
 
         private void centerKnob_Completed(object sender, EventArgs e)
@@ -178,6 +189,10 @@ namespace FlightSimulator.Views
             Aileron = Elevator = _prevAileron = _prevElevator = 0;
             Released?.Invoke(this);
         }
+        //private void changeRudder(object sender, EventArgs e)
+        //{
+           
+        //}
 
     }
 }
