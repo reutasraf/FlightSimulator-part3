@@ -113,6 +113,7 @@ namespace FlightSimulator.Views
         private double canvasWidth, canvasHeight;
         private readonly Storyboard centerKnob;
 
+        //public Joystick(Command com)
         public Joystick()
         {
             InitializeComponent();

@@ -3,10 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:FlightSimulator.Views"
-        mc:Ignorable="d"
-        Height="450"
-        Width="600">
+        xmlns:local ="clr-namespace:FlightSimulator"
+        xmlns:vm ="clr-namespace:FlightSimulator.ViewModels"
+        mc:Ignorable="d" Height="450" Width="800">
+
+
+    <UserControl.Resources>
+        <vm:viewModelAuto x:Key="vm1"/>
+    </UserControl.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -15,10 +20,15 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <TextBox Name="MyTextBox" Margin="5,10,10.333,35" Grid.RowSpan="3"/>
-        <Button  Content="OK" Height="40" Width="120" Margin="152,32,321.333,32.667" Grid.Row="3" Background="BlanchedAlmond"  FontSize="16" FontWeight="Bold"/>
-        <Button  Content="Clear" Height="40" Width="120"  Margin="309,32,164.333,32.667" Grid.Row="3" Background="BlanchedAlmond" FontSize="16" FontWeight="Bold"/>
 
+        <TextBox Name="MyTextBox" 
+               Text="{Binding CommentFromUser}" Grid.RowSpan="3" 
+                 Background="{Binding ColorCange}" Margin="209,23,213,24.333"
+                 TextWrapping="Wrap" VerticalScrollBarVisibility="Visible"
+                AcceptsReturn="True">
+        </TextBox>
+
+        <Button  Content="OK"  Command="{Binding ConnectCommand, UpdateSourceTrigger=PropertyChanged}"  Height="30" Width="120" Background="Blue" FontSize="14" FontWeight="Bold" Margin="269,111.667,411,73" Grid.Row="2" Grid.RowSpan="2" />
+        <Button  Content="Clear" Command="{Binding ClearCommand, UpdateSourceTrigger=PropertyChanged}"  Height="30" Width="120"  Margin="419,111.667,261,73" Grid.Row="2" Background="Blue" FontSize="14" FontWeight="Bold" Grid.RowSpan="2" />
     </Grid>
 </UserControl>
-

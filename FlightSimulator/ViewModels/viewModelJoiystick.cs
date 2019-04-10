@@ -18,6 +18,10 @@ namespace FlightSimulator.ViewModels
         private string throttle;
         private Command command;
 
+        public viewModelJoiystick(Command com1)
+        {
+            this.command = com1;
+        }
 
         public string Elevator {
             set { this.elevator = value;

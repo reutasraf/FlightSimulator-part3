@@ -65,6 +65,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\ApplicationSettingsModel.cs" />
+    <Compile Include="Model\autoModel.cs" />
     <Compile Include="Model\Class1.cs" />
     <Compile Include="Model\Command.cs" />
     <Compile Include="Model\CommandHandler.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="server.cs" />
     <Compile Include="ViewModels\BaseNotify.cs" />
     <Compile Include="ViewModels\FlightBoardViewModel.cs" />
+    <Compile Include="ViewModels\viewModelAuto.cs" />
     <Compile Include="ViewModels\viewModelJoiystick.cs" />
     <Compile Include="ViewModels\Windows\SettingsWindowViewModel.cs" />
     <Compile Include="Views\Auto.xaml.cs">

@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using FlightSimulator.ViewModels;
 
 namespace FlightSimulator.Views
 {
@@ -19,9 +20,12 @@ namespace FlightSimulator.Views
     /// </summary>
     public partial class Auto : UserControl
     {
+        //public Auto(Command com)
         public Auto()
+
         {
             InitializeComponent();
+            this.DataContext = new viewModelAuto();
         }
     }
 }

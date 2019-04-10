@@ -103,9 +103,11 @@ namespace FlightSimulator
 
         public void setInfo(List<string> path)
         {
-
-            string p = this.dict[path[0]];
+            string p = "set ";
+            p =p+ this.dict[path[0]];
+            p = p + " ";
             p=p+ path[1];
+            p = p + "\r\n";
 
             byte[] byteTime = Encoding.ASCII.GetBytes(p.ToString());    
             this.ns.Write(byteTime, 0, byteTime.Length);
@@ -114,5 +116,4 @@ namespace FlightSimulator
 
     }
 }
-
 
