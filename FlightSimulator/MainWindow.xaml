@@ -15,9 +15,10 @@
             <ColumnDefinition Width="45*"/>
         </Grid.ColumnDefinitions>
 
-        <TabControl Margin="0,-45,0.334,15.667" Grid.ColumnSpan="2" Height="450" Width="410" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.Column="2">
+        <TabControl Grid.ColumnSpan="2" Height="450" Width="400"
+                    VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.Column="2" Margin="0,0,0.333,-0.333">
             <TabItem Header="Manual">
-                <Controls:Joystick Loaded="Joystick_Loaded" Margin="-186,-200,-214,-200">
+                <Controls:Joystick Loaded="Joystick_Loaded" Margin="-186,-200,-215,-200">
                 </Controls:Joystick>
             </TabItem>
             <TabItem Header="Auto Pilot">

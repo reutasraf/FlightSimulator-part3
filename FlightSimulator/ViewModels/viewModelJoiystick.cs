@@ -16,12 +16,12 @@ namespace FlightSimulator.ViewModels
         private string elevator;
         private string rudder;
         private string throttle;
-        private Command command;
+        private Command command=new Command();
 
-        public viewModelJoiystick(Command com1)
-        {
-            this.command = com1;
-        }
+        //public viewModelJoiystick(Command com1)
+        //{
+        //    this.command = com1;
+        //}
 
         public string Elevator {
             set { this.elevator = value;
@@ -34,16 +34,23 @@ namespace FlightSimulator.ViewModels
                 List<string> list = new List<string>();
                 list.Add("rudder");
                 list.Add(value);
-                this.rudder= value;
+                //this.rudder= value;
+                command.connectServer();
                 command.setInfo(list);
 
 
             } }
         public string Throttle {
-            set { this.throttle = value;
-                
+            set
+            {
+                List<string> list = new List<string>();
+                list.Add("throttle");
+                list.Add(value);
+                //this.rudder= value;
+                command.setInfo(list);
             }
         }
+
 
         public string Aileron
         {

@@ -117,7 +117,8 @@ namespace FlightSimulator.Views
         public Joystick()
         {
             InitializeComponent();
-            this.vm = new viewModelJoiystick();
+            this.DataContext= new viewModelJoiystick();
+            //this.vm = new viewModelJoiystick();
 
             Knob.MouseLeftButtonDown += Knob_MouseLeftButtonDown;
             Knob.MouseLeftButtonUp += Knob_MouseLeftButtonUp;
@@ -165,7 +166,7 @@ namespace FlightSimulator.Views
             Moved?.Invoke(this, new VirtualJoystickEventArgs { Aileron = Aileron, Elevator = Elevator });
             _prevAileron = Aileron;
             _prevElevator = Elevator;
-
+           
         }
 
         private void Knob_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -175,25 +176,12 @@ namespace FlightSimulator.Views
         }
 
         
-        private void SliderRudder_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            vm.SaveSettings1(e);
-        }
-
-        private void SliderThrottle_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-
-        }
-
         private void centerKnob_Completed(object sender, EventArgs e)
         {
             Aileron = Elevator = _prevAileron = _prevElevator = 0;
             Released?.Invoke(this);
         }
-        //private void changeRudder(object sender, EventArgs e)
-        //{
-           
-        //}
+        
 
     }
 }

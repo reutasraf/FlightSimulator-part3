@@ -14,25 +14,32 @@
         </Grid.RowDefinitions>
 
         <Canvas  x:Name="Base" Margin="221,36,239,97.6" Width="340" Height="340" Grid.RowSpan="2">
-            <Slider Name="sliderRudder"  Maximum="1" Minimum="-1" ValueChanged="SliderRudder_ValueChanged"  Background="White" TickFrequency ="0.2" TickPlacement="BottomRight" RenderTransformOrigin="0.228,1.055" Height="28" Canvas.Top="345" Width="340"/>
-            <Label Name="lblTest" Content="{Binding ElementName=slider1, Path=Value}"/>
+            <Slider Name="sliderRudder" Maximum="1" Minimum="-1" Value="{Binding Rudder,Mode=OneWayToSource}"
+            Background="White" TickFrequency ="0.2" TickPlacement="BottomRight" RenderTransformOrigin="0.228,1.055" 
+            Height="28" Canvas.Top="345" Width="340"/>
+            <Label Name="lblTest" Content="{Binding ElementName=sliderRudder, Path=Value}"
+                   RenderTransformOrigin="-0.8,3.244"  Height="28" Width="27" FontSize="10" 
+                   Canvas.Left="332" Canvas.Top="343"/>
 
-            <Slider Name="sliderThrottle" Maximum="1" Minimum="-1" ValueChanged="SliderThrottle_ValueChanged"  Background="White" Orientation ="Vertical" TickPlacement="BottomRight" TickFrequency ="0.2" Height="340" Canvas.Left="-29" Width="39" RenderTransformOrigin="0.693,0.517"/>
-            <Label Name="lblTest2" Content="{Binding ElementName=slider2, Path=Value}" Height="26" Width="17"/>
+            <Slider Name="sliderThrottle" Maximum="1" Minimum="-1" Value="{Binding Throttle ,Mode=OneWayToSource}"  Background="White" Orientation ="Vertical" TickPlacement="BottomRight" TickFrequency ="0.2" Height="340" Canvas.Left="-22" Width="39" RenderTransformOrigin="0.693,0.517" Canvas.Top="4"/>
+            <Label Name="lblTest2" Content="{Binding ElementName=sliderThrottle, Path=Value}" 
+                   Height="21" Width="39" FontSize="10" Canvas.Top="-21" Canvas.Left="-18"/>
 
-            <TextBlock Canvas.Left="145" Canvas.Top="-21" >ailrone</TextBlock>
-            <TextBlock Canvas.Left="146" Canvas.Top="378" >rudder</TextBlock>
-            <TextBlock Canvas.Left="329" Canvas.Top="139" RenderTransformOrigin="0.5,0.5" Height="37" Width="71" >
+            <Label Name="try" Content="{Binding ElementName=Trottle, Path=Value}" FontSize="16" Canvas.Left="11" Canvas.Top="10" ></Label>
+
+            <TextBlock Canvas.Left="145" FontStyle="Italic" Canvas.Top="-21"  >←ailrone→</TextBlock>
+            <TextBlock Canvas.Left="145" Canvas.Top="371" FontStyle="Italic" Width="78" >←rudder→</TextBlock>
+            <TextBlock Canvas.Left="307" Canvas.Top="160" FontStyle="Italic" RenderTransformOrigin="0.5,0.5" Height="37" Width="71" >
                 <TextBlock.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
                         <SkewTransform/>
-                        <RotateTransform Angle="-90.36"/>
+                        <RotateTransform Angle="90.394"/>
                         <TranslateTransform/>
                     </TransformGroup>
-                </TextBlock.RenderTransform>elevator</TextBlock>
+                </TextBlock.RenderTransform>←elevator→</TextBlock>
 
-            <TextBlock  Canvas.Left="-54" Canvas.Top="168" RenderTransformOrigin="0.5,0.5"  >
+            <TextBlock  Canvas.Left="-57" Canvas.Top="163" FontStyle="Italic" RenderTransformOrigin="0.5,0.5"  >
 
                 <TextBlock.RenderTransform>
                     <TransformGroup>
@@ -41,7 +48,7 @@
                         <RotateTransform Angle="90.452"/>
                         <TranslateTransform/>
                     </TransformGroup>
-                </TextBlock.RenderTransform>throttle</TextBlock>
+                </TextBlock.RenderTransform>←throttle→</TextBlock>
 
             <Ellipse HorizontalAlignment="Left" Height="340" VerticalAlignment="Top" Width="340">
                 <Ellipse.Fill>
@@ -60,6 +67,7 @@
                     </RadialGradientBrush>
                 </Ellipse.Fill>
             </Ellipse>
+
             <Path Data="M205.75,65.625 L226.875,47.25 L248.5,65.625 z" Fill="#FF575757" HorizontalAlignment="Left" Height="18.375" Stretch="Fill" UseLayoutRounding="False" VerticalAlignment="Top" Width="42.75" Canvas.Left="147.875" Canvas.Top="37.625" />
             <Path Data="M205.75,65.625 L226.875,47.25 L248.5,65.625 z" Fill="#FF575757" HorizontalAlignment="Left" Height="18.375" Stretch="Fill" UseLayoutRounding="False" VerticalAlignment="Top" Width="42.75" RenderTransformOrigin="0.5,0.5" Canvas.Left="147.875" Canvas.Top="284.125">
                 <Path.RenderTransform>

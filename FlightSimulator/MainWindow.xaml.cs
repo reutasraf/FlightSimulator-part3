@@ -25,8 +25,8 @@ namespace FlightSimulator
             //Command com = new Command();
             Console.WriteLine("connect");
             InitializeComponent();
-            Command c = new Command();
-            c.connectServer();
+            //Command c = new Command();
+            //c.connectServer();
            // Server s = new Server();
             //s.connectServer();
         }

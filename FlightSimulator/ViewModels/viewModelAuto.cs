@@ -11,56 +11,78 @@ namespace FlightSimulator.ViewModels
 {
     class viewModelAuto : BaseNotify
     {
-
-        public Command com;
+        private bool isConnect=false;
+        public Command com=new Command();
         private List<List<string>> myCommands = new List<List<string>>();
-        
+        private int count;
+        private string data="";
+        public viewModelAuto()
+        {
+            count = 0;
+        }
         //public viewModelAuto(Command com1)
         //{
         //    this.com = com1;
+        //count=0;
         //}
-        
-        private String commantFromUser;
-        public String CommentFromUser
+
+        private String fromUser="";
+        public String FromUser
         {
             get
             {
-                return commantFromUser;
+                if (!(fromUser == ""))
+                {
+                    NotifyPropertyChanged("ColorCange");
+                }
+                return fromUser;
             }
             set
             {
-                this.Parser(value.ToString());
-                commantFromUser = value;
-                NotifyPropertyChanged("CommentFromUser");
-               
+                
+                this.data = value;
+                fromUser = value;
+                NotifyPropertyChanged("FromUser");
+                NotifyPropertyChanged("ColorCange");
+
             }
         }
 
-        private ConsoleColor color;
-        public ConsoleColor ColorCange
+        private String color;
+        public String ColorCange
         {
             get
             {
-                return color;
-            }
-            set
-            {
-                if (commantFromUser == "")
+                if(count== 0)
                 {
-                    color = ConsoleColor.White;
+                    color = "White";
+                    count++;
+                }
+                else if (fromUser == "")
+                {
+                    color = "White";
+                    count++;
+
                 }
                 else
                 {
-                    color = ConsoleColor.Red;
+                    color = "Pink";
                 }
-
+                return color;
             }
-        }
-        private void OnClick1()
-        {
             
         }
+        private void OkCommand()
+        {
+            this.Parser(this.data);
+            if (!this.isConnect)
+            {
+                com.connectServer();
+                this.isConnect = true;
+            }
 
+            com.setAoutInfo(this.myCommands);
+        }
 
         public ICommand _connectCommand;
         public ICommand ConnectCommand
@@ -68,22 +90,12 @@ namespace FlightSimulator.ViewModels
             get
             {
                 return _connectCommand ?? (_connectCommand =
-                new CommandHandler(() => OnClick1()));
-
-            }
-            
-            set
-            {
-
-                com.setInfo(this.myCommands[0]);
-
+                new CommandHandler(() => OkCommand()));
 
             }
         }
 
-
-
-
+        
         private ICommand _clearCommand; 
         public ICommand ClearCommand
         {
@@ -95,38 +107,38 @@ namespace FlightSimulator.ViewModels
         }
         private void ClickClear()
         {
-            CommentFromUser = "";
+            FromUser = "";
         }
         
 
-        private ICommand _sendCommand;
-        public ICommand SendCommand
-        {
-            get
-            {
-                return _sendCommand ?? (_sendCommand =
-                new CommandHandler(() => ClickSend()));
-            }
-        }
-        private void ClickSend()
-        {
-            //client.toSimo(commantFromUser);
-            NotifyPropertyChanged("ColorCange");
-            CommentFromUser = "";
-        }
+        //private ICommand _sendCommand;
+        //public ICommand SendCommand
+        //{
+        //    get
+        //    {
+        //        return _sendCommand ?? (_sendCommand =
+        //        new CommandHandler(() => ClickSend()));
+        //    }
+        //}
+        //private void ClickSend()
+        //{
+        //    //client.toSimo(commantFromUser);
+        //    NotifyPropertyChanged("ColorCange");
+        //    CommentFromUser = "";
+        //}
         
-        public ICommand WriteCommand
-        {
-            get
-            {
-                return _clearCommand ?? (_clearCommand =
-                new CommandHandler(() => UserWrite()));
-            }
-        }
-        private void UserWrite()
-        {
+        //public ICommand WriteCommand
+        //{
+        //    get
+        //    {
+        //        return _clearCommand ?? (_clearCommand =
+        //        new CommandHandler(() => UserWrite()));
+        //    }
+        //}
+        //private void UserWrite()
+        //{
 
-        }
+        //}
 
         private void Parser(string s)
         {
