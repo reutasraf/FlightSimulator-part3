@@ -19,22 +19,32 @@ namespace FlightSimulator
         public Dictionary<string, string> dict = new Dictionary<string, string>();
         TcpClient client;
         NetworkStream ns;
+        private bool IsConnect;
 
         public Command(){
+            IsConnect = false;
             this.setNewMap();
             }
 
 
         public void connectServer()
         {
-
-            IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 5402);
-            this.client = new TcpClient();
-            this.client.Connect(ep);
-            Console.WriteLine("You are connected");
-            this.ns = client.GetStream();
+         
+            
+                IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 5402);
+                this.client = new TcpClient();
+                this.client.Connect(ep);
+                Console.WriteLine("You are connected");
+                this.ns = client.GetStream();
+            
+            IsConnect = true;
 
         }
+        public  bool GetIsConnect()
+        {
+            return this.IsConnect;
+        }
+
         
     
         private void setNewMap()
@@ -43,7 +53,6 @@ namespace FlightSimulator
             this.dict.Add("elevator","/controls/flight/elevator");
             this.dict.Add("rudder","/controls/flight/rudder");
             this.dict.Add("throttle","/controls/engines/current-engine/throttle");
-         
         }
 
         public void setInfo(List<string> path)

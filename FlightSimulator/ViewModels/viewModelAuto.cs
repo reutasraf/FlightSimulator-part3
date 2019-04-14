@@ -12,7 +12,7 @@ namespace FlightSimulator.ViewModels
     class viewModelAuto : BaseNotify
     {
         private bool isConnect=false;
-        public Command com=new Command();
+        //public Command com=new Command();
         private List<List<string>> myCommands = new List<List<string>>();
         private int count;
         private string data="";
@@ -20,11 +20,7 @@ namespace FlightSimulator.ViewModels
         {
             count = 0;
         }
-        //public viewModelAuto(Command com1)
-        //{
-        //    this.com = com1;
-        //count=0;
-        //}
+       
 
         private String fromUser="";
         public String FromUser
@@ -77,11 +73,16 @@ namespace FlightSimulator.ViewModels
             this.Parser(this.data);
             if (!this.isConnect)
             {
-                com.connectServer();
+                  
+                //SingeltonCommand.Instance.connectServer();
                 this.isConnect = true;
             }
+            if (SingeltonCommand.Instance.GetIsConnect())
+            {
+                SingeltonCommand.Instance.setAoutInfo(this.myCommands);
+            }
+           
 
-            com.setAoutInfo(this.myCommands);
         }
 
         public ICommand _connectCommand;

@@ -16,16 +16,15 @@ namespace FlightSimulator.ViewModels
         private string elevator;
         private string rudder;
         private string throttle;
-        private Command command=new Command();
-
-        //public viewModelJoiystick(Command com1)
-        //{
-        //    this.command = com1;
-        //}
+        //private Command command=new Command();
+         
+        
 
         public string Elevator {
             set { this.elevator = value;
                 //command.setInfo("gg");
+                //SingeltonCommand.Instance.setInfo(list);
+    
             }
             
         }
@@ -35,9 +34,13 @@ namespace FlightSimulator.ViewModels
                 list.Add("rudder");
                 list.Add(value);
                 //this.rudder= value;
-                command.connectServer();
-                command.setInfo(list);
-
+                //SingeltonCommand.Instance.connectServer();
+                //if it already connect-set the info
+                if (SingeltonCommand.Instance.GetIsConnect())
+                {
+                    SingeltonCommand.Instance.setInfo(list);
+                }
+                //command.setInfo(list);
 
             } }
         public string Throttle {
@@ -47,7 +50,12 @@ namespace FlightSimulator.ViewModels
                 list.Add("throttle");
                 list.Add(value);
                 //this.rudder= value;
-                command.setInfo(list);
+
+                //if it already connect-set the info
+                if (SingeltonCommand.Instance.GetIsConnect())
+                {
+                    SingeltonCommand.Instance.setInfo(list);
+                }
             }
         }
 
@@ -60,7 +68,7 @@ namespace FlightSimulator.ViewModels
         }
         public void SaveSettings1(RoutedPropertyChangedEventArgs<double> e)
         {
-            this.command = new Command();
+            //this.command = new Command();
             //this.command.connectClient();
             string val = e.NewValue.ToString();
             this.Rudder = val;
