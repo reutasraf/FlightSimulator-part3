@@ -21,7 +21,8 @@ namespace FlightSimulator.ViewModels
         
 
         public string Elevator {
-            set { this.elevator = value;
+            set {
+                this.elevator = value;
                 //command.setInfo("gg");
                 //SingeltonCommand.Instance.setInfo(list);
     

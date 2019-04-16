@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using FlightSimulator.Model;
 
-
 namespace FlightSimulator.ViewModels
 {
     class viewModelAuto : BaseNotify
@@ -71,12 +70,12 @@ namespace FlightSimulator.ViewModels
         private void OkCommand()
         {
             this.Parser(this.data);
-            if (!this.isConnect)
-            {
+            //if (!this.isConnect)
+            //{
                   
-                //SingeltonCommand.Instance.connectServer();
-                this.isConnect = true;
-            }
+            //    //SingeltonCommand.Instance.connectServer();
+            //    this.isConnect = true;
+            //}
             if (SingeltonCommand.Instance.GetIsConnect())
             {
                 SingeltonCommand.Instance.setAoutInfo(this.myCommands);

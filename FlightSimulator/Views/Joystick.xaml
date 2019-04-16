@@ -19,11 +19,11 @@
             Height="28" Canvas.Top="345" Width="340"/>
             <Label Name="lblTest" Content="{Binding ElementName=sliderRudder, Path=Value}"
                    RenderTransformOrigin="-0.8,3.244"  Height="28" Width="27" FontSize="10" 
-                   Canvas.Left="340" Canvas.Top="343"/>
+                   Canvas.Left="332" Canvas.Top="343"/>
 
             <Slider Name="sliderThrottle" Maximum="1" Minimum="-1" Value="{Binding Throttle ,Mode=OneWayToSource}"  Background="White" Orientation ="Vertical" TickPlacement="BottomRight" TickFrequency ="0.2" Height="340" Canvas.Left="-24" Width="39" RenderTransformOrigin="0.693,0.517"/>
             <Label Name="lblTest2" Content="{Binding ElementName=sliderThrottle, Path=Value}" 
-                   Height="21" Width="39" FontSize="10" Canvas.Top="-21" Canvas.Left="-19"/>
+                   Height="21" Width="34" FontSize="10" Canvas.Top="-21" Canvas.Left="-19"/>
 
             <Label Name="try" Content="{Binding ElementName=Trottle, Path=Value}" FontSize="16" Canvas.Left="11" Canvas.Top="10" ></Label>
 
