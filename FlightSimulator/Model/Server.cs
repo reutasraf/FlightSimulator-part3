@@ -9,7 +9,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using FlightSimulator.ViewModels;
+
 
 
 namespace FlightSimulator.Model
@@ -19,6 +19,9 @@ namespace FlightSimulator.Model
         private bool shouldStop;
         private float lon;
         private float lat;
+        TcpListener server;
+        TcpClient clientSocket;
+        Thread thread;
 
         public Server()
         {
@@ -28,6 +31,7 @@ namespace FlightSimulator.Model
 
         }
 
+        // Property of Lon
         public float Lon
         {
             get { return lon; }
@@ -38,6 +42,7 @@ namespace FlightSimulator.Model
             }
         }
 
+        // Property of Lat
         public float Lat
         {
             get { return lat; }
@@ -50,10 +55,12 @@ namespace FlightSimulator.Model
 
         private static string readLine(BinaryReader reader)
         {
+            // storage the line
             char[] buffer = new char[1024];
             int i = 0;
+            // the end of line
             char end = '\0';
-
+            // read untill the end of line
             while (i < 1024 && end != '\n')
             {
                 char input = reader.ReadChar();
@@ -68,13 +75,13 @@ namespace FlightSimulator.Model
         {
             IPEndPoint ep = new IPEndPoint(IPAddress.Parse(Properties.Settings.Default.FlightServerIP),
                                                   Properties.Settings.Default.FlightInfoPort);
-            TcpListener server = new TcpListener(ep);
-
-
+            this.server = new TcpListener(ep);
+            // open the server
             server.Start();
-            TcpClient clientSocket = server.AcceptTcpClient();
-
-            Thread thread = new Thread(() => listenFlight(server, clientSocket));
+            // wait for connect
+            this.clientSocket = server.AcceptTcpClient();
+            // after connection- start listen to the flight.
+            this.thread = new Thread(() => listenFlight(server, clientSocket));
             thread.Start();
         }
 
@@ -83,28 +90,34 @@ namespace FlightSimulator.Model
             NetworkStream stream = clientSocket.GetStream();
             BinaryReader reader = new BinaryReader(stream);
             DateTime start = DateTime.UtcNow;
-
             string inputLine;
             string[] splitStr;
 
             while (!shouldStop)
             {
                 inputLine = readLine(reader);
-
                 if (Convert.ToInt32((DateTime.UtcNow - start).TotalSeconds) < 90)
                 {
                     continue;
                 }
-
+                // take from the flight only the lon and the lat
                 splitStr = inputLine.Split(',');
                 FlightBoardViewModel.Instance.Lon = float.Parse(splitStr[0]);
                 FlightBoardViewModel.Instance.Lat = float.Parse(splitStr[1]);
-                //  Console.WriteLine("lon " + FlightBoardViewModel.Instance.Lon + "lat " + FlightBoardViewModel.Instance.Lat);
-                //Thread.Sleep(250);
             }
 
-            clientSocket.Close();
-            server.Stop();
+
+        }
+        /**
+         * close the socket.
+         * */
+        public void close()
+        {
+            this.shouldStop = true;
+            this.thread.Abort();
+            this.clientSocket.Close();
+            this.server.Stop();
+
         }
     }
 
