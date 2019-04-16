@@ -26,6 +26,8 @@ namespace FlightSimulator.Views
         
     {
         private viewModelJoiystick vm;
+
+
         /// <summary>Current Aileron</summary>
         public static readonly DependencyProperty AileronProperty =
             DependencyProperty.Register("Aileron", typeof(double), typeof(Joystick),null);
