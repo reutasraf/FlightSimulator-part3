@@ -20,25 +20,22 @@ namespace FlightSimulator
 
         public void connectClient()
         {
-            /*bool done = false;
+            bool done = false;
 
             TcpListener listener = new TcpListener(portNum);
 
             listener.Start();
 
-            while (!done)
+            /*while (!done)
             {
                 Console.Write("Waiting for connection...");
                 TcpClient client = listener.AcceptTcpClient();
                 this.client1 = client;
-
                 Console.WriteLine("Connection accepted.");
                 NetworkStream ns = client.GetStream();
                 this.clientStream = ns;
             }
-
             listener.Stop();
-
             return;*/
         }
 
@@ -46,4 +43,3 @@ namespace FlightSimulator
     }
 
 }
-

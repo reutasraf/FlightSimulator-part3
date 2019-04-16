@@ -112,15 +112,18 @@ namespace FlightSimulator.Views
         private double _prevAileron, _prevElevator;
         private double canvasWidth, canvasHeight;
         private readonly Storyboard centerKnob;
-        private VirtualJoystickEventArgs joystick;
+        //private VirtualJoystickEventArgs joystick;
+        private viewModelJoiystick joystick;
+
 
         //public Joystick(Command com)
         public Joystick()
         {
             InitializeComponent();
-            this.DataContext= new viewModelJoiystick();
+            //this.DataContext= new viewModelJoiystick();
             //this.vm = new viewModelJoiystick();
-           this.joystick = new VirtualJoystickEventArgs();
+           //this.joystick = new VirtualJoystickEventArgs();
+            //this.joystick = new viewModelJoiystick();
 
             Knob.MouseLeftButtonDown += Knob_MouseLeftButtonDown;
             Knob.MouseLeftButtonUp += Knob_MouseLeftButtonUp;
@@ -155,13 +158,13 @@ namespace FlightSimulator.Views
             double distance = Math.Round(Math.Sqrt(deltaPos.X * deltaPos.X + deltaPos.Y * deltaPos.Y));
             if (distance >= canvasWidth / 2 || distance >= canvasHeight / 2)
             {
-                this.joystick.Aileron = Aileron / 124;
-                this.joystick.Elevator = Elevator / 124;
+                //Aileron = Aileron / 124;
+                //Elevator = Elevator / 124;
                 return;
             }
                 
-            Aileron = -deltaPos.Y;
-            Elevator = deltaPos.X;
+            Aileron = -deltaPos.X/124;
+            Elevator = deltaPos.Y/124;
 
             knobPosition.X = deltaPos.X;
             knobPosition.Y = deltaPos.Y;
@@ -169,8 +172,8 @@ namespace FlightSimulator.Views
             if (Moved == null ||
                 (!(Math.Abs(_prevAileron - Aileron) > AileronStep) && !(Math.Abs(_prevElevator - Elevator) > ElevatorStep)))
             {
-                this.joystick.Aileron = Aileron / 124;
-                this.joystick.Elevator = Elevator / 124;
+                //this.joystick.Aileron = Aileron / 124;
+                //this.joystick.Elevator = Elevator / 124;
                 return;
             }
                 

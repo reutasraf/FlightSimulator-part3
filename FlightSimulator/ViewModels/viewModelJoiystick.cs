@@ -12,22 +12,43 @@ namespace FlightSimulator.ViewModels
     
     public class viewModelJoiystick
     {
-        private string aileron;
-        private string elevator;
+        private double aileron;
+        private double elevator;
         private string rudder;
         private string throttle;
         //private Command command=new Command();
          
         
 
-        public string Elevator {
-            set {
-                this.elevator = value;
-                //command.setInfo("gg");
-                //SingeltonCommand.Instance.setInfo(list);
-    
+        public double Elevator {
+            get
+            {
+                return elevator;
             }
-            
+            set
+            {
+                List<string> arg = new List<string>();
+                elevator = value;
+                if (elevator < -1)
+                {
+                    elevator = -1;
+                }
+                else if (elevator > 1)
+                {
+                    elevator = 1;
+                }
+
+                arg.Add("elevator");
+                arg.Add(elevator.ToString());
+
+                if (SingeltonCommand.Instance.GetIsConnect())
+                {
+                    SingeltonCommand.Instance.setInfo(arg);
+                }
+
+
+            }
+
         }
         public string Rudder {
             set {
@@ -61,10 +82,32 @@ namespace FlightSimulator.ViewModels
         }
 
 
-        public string Aileron
+        public double Aileron
         {
-            set { this.aileron = value;
-                
+            get
+            {
+                return aileron;
+            }
+            set
+            {
+                List<string> arg = new List<string>();
+                aileron = value;
+                if (aileron < -1)
+                {
+                    aileron = -1;
+                }
+                else if (aileron > 1)
+                {
+                    aileron = 1;
+                }
+
+                arg.Add("aileron");
+                arg.Add(aileron.ToString());
+
+                if (SingeltonCommand.Instance.GetIsConnect())
+                {
+                    SingeltonCommand.Instance.setInfo(arg);
+                }
             }
         }
         public void SaveSettings1(RoutedPropertyChangedEventArgs<double> e)

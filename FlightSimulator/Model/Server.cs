@@ -1,150 +1,111 @@
-﻿
-﻿using System;
+﻿using FlightSimulator.ViewModels;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Net;      
+using System.Net;
 using System.Net.Sockets;
+using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
+using FlightSimulator.ViewModels;
+
 
 namespace FlightSimulator.Model
 {
-    class Server
+    public class Server
     {
-        private const int portNum = 5402;
-        private const string hostName = "host.contoso.com";
-        public Dictionary<string, double> pathRead = new Dictionary<string, double>();
+        private bool shouldStop;
+        private float lon;
+        private float lat;
 
-        public void connectServer()
+        public Server()
         {
-            TcpListener server = null;
-            try
-            {
-                // Set the TcpListener on port 13000.
-                Int32 port = 5400;
-                IPAddress localAddr = IPAddress.Parse("127.0.0.1");
+            shouldStop = false;
+            lon = 0.0f;
+            lat = 0.0f;
 
-                // TcpListener server = new TcpListener(port);
-                server = new TcpListener(localAddr, port);
-
-                // Start listening for client requests.
-                server.Start();
-
-                // Buffer for reading data
-                Byte[] bytes = new Byte[256];
-                String data = null;
-
-                // Enter the listening loop.
-               // while (true)
-              //  {
-                    Console.Write("Waiting for a connection... ");
-
-                    // Perform a blocking call to accept requests.
-                    // You could also user server.AcceptSocket() here.
-                    TcpClient client = server.AcceptTcpClient();
-                    Console.WriteLine("Connected!");
-
-                    data = null;
-
-                    // Get a stream object for reading and writing
-                    NetworkStream stream = client.GetStream();
-
-                    int i;
-                    Thread t = new Thread(() =>
-                    {
-                        // Loop to receive all the data sent by the client.
-                        while ((i = stream.Read(bytes, 0, bytes.Length)) != 0)
-                        {
-                            // Translate data bytes to a ASCII string.
-                            data = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
-                            Console.WriteLine("Received: {0}", data);
-
-                            // Process the data sent by the client.
-                            data = data.ToUpper();
-
-                            byte[] msg = System.Text.Encoding.ASCII.GetBytes(data);
-
-                            // Send back a response.
-                            // stream.Write(msg, 0, msg.Length);
-                            // Console.WriteLine("Sent: {0}", data);
-                        }
-
-                        // Shutdown and end connection
-                        client.Close();
-
-                    });
-              //  }
-            }
-            catch (SocketException e)
-            {
-                Console.WriteLine("SocketException: {0}", e);
-            }
-            finally
-            {
-                // Stop listening for new clients.
-                server.Stop();
-            }
-            Console.WriteLine("\nHit enter to continue...");
-            Console.Read();
-            return;
-        }
-        public void setData()
-        {
-
-            this.pathRead.Add("/instrumentation/airspeed-indicator/indicated-speed-kt", 0);
-            this.pathRead.Add("/instrumentation/altimeter/indicated-altitude-ft", 0);
-            this.pathRead.Add("/instrumentation/altimeter/pressure-alt-ft", 0);
-            this.pathRead.Add("/instrumentation/attitude-indicator/indicated-pitch-deg", 0);
-            this.pathRead.Add("/instrumentation/attitude-indicator/indicated-roll-deg", 0);
-            this.pathRead.Add("/instrumentation/attitude-indicator/internal-pitch-deg", 0);
-            this.pathRead.Add("/instrumentation/attitude-indicator/internal-roll-deg", 0);
-            this.pathRead.Add("/instrumentation/encoder/indicated-altitude-ft", 0);
-            this.pathRead.Add("/instrumentation/encoder/pressure-alt-ft", 0);
-            this.pathRead.Add("/instrumentation/gps/indicated-altitude-ft", 0);
-            this.pathRead.Add("/instrumentation/gps/indicated-ground-speed-kt", 0);
-            this.pathRead.Add("/instrumentation/gps/indicated-vertical-speed", 0);
-            this.pathRead.Add("/instrumentation/heading-indicator/indicated-heading-deg", 0);
-            this.pathRead.Add("/instrumentation/magnetic-compass/indicated-heading-deg", 0);
-            this.pathRead.Add("/instrumentation/slip-skid-ball/indicated-slip-skid", 0);
-            this.pathRead.Add("/instrumentation/turn-indicator/indicated-turn-rate", 0);
-            this.pathRead.Add("/instrumentation/vertical-speed-indicator/indicated-speed-fpm", 0);
-            this.pathRead.Add("/controls/flight/aileron", 0);
-            this.pathRead.Add("/controls/flight/elevator", 0);
-            this.pathRead.Add("/controls/flight/rudder", 0);
-            this.pathRead.Add("/controls/flight/flaps", 0);
-            this.pathRead.Add("/controls/engines/current-engine/throttle", 0);
-            this.pathRead.Add("/engines/engine/rpm", 0);
         }
 
-        public void setDict(List<double> vector1)
+        public float Lon
         {
-            this.pathRead["/instrumentation/airspeed-indicator/indicated-speed-kt"] = vector1[0];
-            this.pathRead["/instrumentation/altimeter/indicated-altitude-ft"] = vector1[1];
-            this.pathRead["/instrumentation/altimeter/pressure-alt-ft"] = vector1[2];
-            this.pathRead["/instrumentation/attitude-indicator/indicated-pitch-deg"] = vector1[3];
-            this.pathRead["/instrumentation/attitude-indicator/indicated-roll-deg"] = vector1[4];
-            this.pathRead["/instrumentation/attitude-indicator/internal-pitch-deg"] = vector1[5];
-            this.pathRead["/instrumentation/attitude-indicator/internal-roll-deg"] = vector1[6];
-            this.pathRead["/instrumentation/encoder/indicated-altitude-ft"] = vector1[7];
-            this.pathRead["/instrumentation/encoder/pressure-alt-ft"] = vector1[8];
-            this.pathRead["/instrumentation/gps/indicated-altitude-ft"] = vector1[9];
-            this.pathRead["/instrumentation/gps/indicated-ground-speed-kt"] = vector1[10];
-            this.pathRead["/instrumentation/gps/indicated-vertical-speed"] = vector1[11];
-            this.pathRead["/instrumentation/heading-indicator/indicated-heading-deg"] = vector1[12];
-            this.pathRead["/instrumentation/magnetic-compass/indicated-heading-deg"] = vector1[13];
-            this.pathRead["/instrumentation/slip-skid-ball/indicated-slip-skid"] = vector1[14];
-            this.pathRead["/instrumentation/turn-indicator/indicated-turn-rate"] = vector1[15];
-            this.pathRead["/instrumentation/vertical-speed-indicator/indicated-speed-fpm"] = vector1[16];
-            this.pathRead["/controls/flight/aileron"] = vector1[17];
-            this.pathRead["/controls/flight/elevator"] = vector1[18];
-            this.pathRead["/controls/flight/rudder"] = vector1[19];
-            this.pathRead["/controls/flight/flaps"] = vector1[20];
-            this.pathRead["/controls/engines/current-engine/throttle"] = vector1[21];
-            this.pathRead["/engines/engine/rpm"] = vector1[22];
+            get { return lon; }
+            set
+            {
+                lon = value;
+
+            }
         }
 
+        public float Lat
+        {
+            get { return lat; }
+            set
+            {
+                lat = value;
+
+            }
+        }
+
+        private static string readLine(BinaryReader reader)
+        {
+            char[] buffer = new char[1024];
+            int i = 0;
+            char end = '\0';
+
+            while (i < 1024 && end != '\n')
+            {
+                char input = reader.ReadChar();
+                buffer[i] = input;
+                end = buffer[i];
+                i++;
+            }
+
+            return new string(buffer);
+        }
+        public void openServer()
+        {
+            IPEndPoint ep = new IPEndPoint(IPAddress.Parse(Properties.Settings.Default.FlightServerIP),
+                                                  Properties.Settings.Default.FlightInfoPort);
+            TcpListener server = new TcpListener(ep);
+
+
+            server.Start();
+            TcpClient clientSocket = server.AcceptTcpClient();
+
+            Thread thread = new Thread(() => listenFlight(server, clientSocket));
+            thread.Start();
+        }
+
+        private void listenFlight(TcpListener server, TcpClient clientSocket)
+        {
+            NetworkStream stream = clientSocket.GetStream();
+            BinaryReader reader = new BinaryReader(stream);
+            DateTime start = DateTime.UtcNow;
+
+            string inputLine;
+            string[] splitStr;
+
+            while (!shouldStop)
+            {
+                inputLine = readLine(reader);
+
+                if (Convert.ToInt32((DateTime.UtcNow - start).TotalSeconds) < 90)
+                {
+                    continue;
+                }
+
+                splitStr = inputLine.Split(',');
+                FlightBoardViewModel.Instance.Lon = float.Parse(splitStr[0]);
+                FlightBoardViewModel.Instance.Lat = float.Parse(splitStr[1]);
+                //  Console.WriteLine("lon " + FlightBoardViewModel.Instance.Lon + "lat " + FlightBoardViewModel.Instance.Lat);
+                //Thread.Sleep(250);
+            }
+
+            clientSocket.Close();
+            server.Stop();
+        }
     }
+
 }
-
-

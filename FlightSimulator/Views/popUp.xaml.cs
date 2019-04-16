@@ -10,35 +10,22 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
+using FlightSimulator.ViewModels.Windows;
 using FlightSimulator.Model;
 
-namespace FlightSimulator
+namespace FlightSimulator.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for PopupSettings.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class PopUp : Window
     {
-        public MainWindow()
+        public PopUp()
         {
-          
             InitializeComponent();
-
-        }
-
-        private void Joystick_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Auto_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void ControlPanel_Loaded(object sender, RoutedEventArgs e)
-        {
+            this.DataContext = new SettingsWindowViewModel(new ApplicationSettingsModel());
 
         }
     }

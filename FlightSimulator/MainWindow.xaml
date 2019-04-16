@@ -4,28 +4,24 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FlightSimulator"
-        xmlns:Controls="clr-namespace:FlightSimulator.Views"
+        xmlns:Controls ="clr-namespace:FlightSimulator.Views"
+        
         mc:Ignorable="d"
-        Title="Main window" Height="500" Width="800">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="106*"/>
-            <ColumnDefinition Width="40*"/>
-            <ColumnDefinition Width="603*"/>
-            <ColumnDefinition Width="45*"/>
-        </Grid.ColumnDefinitions>
+        
+        
+        Title="MainWindow" Height="540" Width="1100" MinHeight="200" MinWidth="400">
+    <Viewbox>
+        <Grid>
 
-        <TabControl Grid.ColumnSpan="2" Height="450" Width="400"
-                    VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.Column="2" Margin="0,0,0.333,-0.333">
-            <TabItem Header="Manual">
-                <Controls:Joystick Loaded="Joystick_Loaded" Margin="-186,-200,-215,-200">
-                </Controls:Joystick>
-            </TabItem>
-            <TabItem Header="Auto Pilot">
-                <Controls:Auto Loaded="Auto_Loaded" Margin="-200">
-                </Controls:Auto>
-            </TabItem>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Controls:MyFlightBorder Grid.Column="0" Margin="10">
+            </Controls:MyFlightBorder>
+            <Controls:ControlPanel Grid.Column="1" Loaded="ControlPanel_Loaded">
+            </Controls:ControlPanel>
 
-        </TabControl>
-    </Grid>
+        </Grid>
+    </Viewbox>
 </Window>

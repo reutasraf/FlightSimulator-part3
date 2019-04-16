@@ -70,35 +70,37 @@ namespace FlightSimulator
 
         public void setAoutInfo(List <List<string>> path)
         {
-                if (path.Count != 0)
-                {
-                    using (NetworkStream stream = new NetworkStream(client.Client, false))
-                    using (BinaryWriter writer = new BinaryWriter(stream))
-                    {
-                        while (path.Count != 0)
-                        {
-                            List<string> thePath = path[0];
-                            thePath.Add("\r\n");
-                            path.RemoveAt(0);
-                        string realPath = "";
-                        int i = 0;
-                        while (thePath.Count>0)
-                        {
-                            realPath = realPath + thePath[i];
-                            i++;
+            Thread thread = new Thread(() =>
+              {
+                  if (path.Count != 0)
+                  {
+                      using (NetworkStream stream = new NetworkStream(client.Client, false))
+                      using (BinaryWriter writer = new BinaryWriter(stream))
+                      {
+                          while (path.Count != 0)
+                          {
+                              List<string> thePath = path[0];
+                              thePath.Add("\r\n");
+                              path.RemoveAt(0);
+                              string realPath = "";
+                              int i = 0;
+                              while (thePath.Count > 0)
+                              {
+                                  realPath = realPath + thePath[i];
+                                  i++;
 
-                        }
-                            byte[] data = System.Text.Encoding.ASCII.GetBytes(realPath);
-                            Console.WriteLine(realPath);
-                            writer.Write(data);
-                            writer.Flush();
-                        //wait two sec
+                              }
+                              byte[] data = System.Text.Encoding.ASCII.GetBytes(realPath);
+                              Console.WriteLine(realPath);
+                              writer.Write(data);
+                              writer.Flush();
+                            //wait two sec
                             Thread.Sleep(2000);
-                        }
-                    }
-                }
-                
-            
+                          }
+                      }
+                  }
+
+              });thread.Start();
 
 
         }

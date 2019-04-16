@@ -5,29 +5,34 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vv="clr-namespace:FlightSimulator.ViewModels"
-             mc:Ignorable="d" d:DesignWidth="400" Height="450">
+            
+             mc:Ignorable="d" d:DesignWidth="800" Height="380">
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="111*"/>
-            <RowDefinition Height="47*"/>
-        </Grid.RowDefinitions>
-
-        <Canvas  x:Name="Base" Margin="221,36,239,97.6" Width="340" Height="340" Grid.RowSpan="2">
-            <Slider Name="sliderRudder" Maximum="1" Minimum="-1" Value="{Binding Rudder,Mode=OneWayToSource}"
+        
+        <Canvas  x:Name="Base" Margin="0" Width="340" Height="340">
+            <!--<Slider Name="sliderRudder" Maximum="1" Minimum="-1" Value="{Binding Rudder,Mode=OneWayToSource}"
             Background="White" TickFrequency ="0.2" TickPlacement="BottomRight" RenderTransformOrigin="0.228,1.055" 
-            Height="28" Canvas.Top="345" Width="340"/>
-            <Label Name="lblTest" Content="{Binding ElementName=sliderRudder, Path=Value}"
-                   RenderTransformOrigin="-0.8,3.244"  Height="28" Width="27" FontSize="10" 
-                   Canvas.Left="332" Canvas.Top="343"/>
+            Height="25" Canvas.Top="348" Width="335"/>
+            --><!--<Label Name="lblTest" Content="{Binding ElementName=sliderRudder, Path=Value, StringFormat=N2}"
+                   RenderTransformOrigin="-0.8,3.244"  Height="28" Width="44" FontSize="10" 
+                   Canvas.Left="332" Canvas.Top="343"/>--><!--
+            <TextBlock Name="lblTe" Text="{Binding ElementName=sliderRudder, Path=Value, StringFormat=N2}"
+                   RenderTransformOrigin="-0.8,3.244"  Height="28" Width="44" FontSize="10" 
+                   Canvas.Left="340" Canvas.Top="351"/>
 
             <Slider Name="sliderThrottle" Maximum="1" Minimum="-1" Value="{Binding Throttle ,Mode=OneWayToSource}"  Background="White" Orientation ="Vertical" TickPlacement="BottomRight" TickFrequency ="0.2" Height="340" Canvas.Left="-24" Width="39" RenderTransformOrigin="0.693,0.517"/>
-            <Label Name="lblTest2" Content="{Binding ElementName=sliderThrottle, Path=Value}" 
-                   Height="21" Width="34" FontSize="10" Canvas.Top="-21" Canvas.Left="-19"/>
+            --><!--<Label Name="lblTest2" Content="{Binding ElementName=sliderThrottle, Path=Value, StringFormat=N2}" 
+                   Height="21" Width="56" FontSize="10" Canvas.Top="-21" Canvas.Left="-19"/>--><!--
+            <TextBlock Name="lblTe2" Text="{Binding ElementName=sliderThrottle, Path=Value, StringFormat=N2}" 
+                   Height="21" Width="56" FontSize="10" Canvas.Top="-21" Canvas.Left="-19"/>
 
             <Label Name="try" Content="{Binding ElementName=Trottle, Path=Value}" FontSize="16" Canvas.Left="11" Canvas.Top="10" ></Label>
 
             <TextBlock Canvas.Left="145" FontStyle="Italic" Canvas.Top="-21"  >←ailrone→</TextBlock>
+            --><!--<TextBlock Name="tailrone" Text="{Binding ElementName=elevator, Path=Value, StringFormat=N2}" 
+                   Height="32" Width="39" FontSize="10" Canvas.Left="280" Canvas.Top="-32"/>--><!--
+
             <TextBlock Canvas.Left="145" Canvas.Top="371" FontStyle="Italic" Width="78" >←rudder→</TextBlock>
             <TextBlock Canvas.Left="307" Canvas.Top="159" FontStyle="Italic" RenderTransformOrigin="0.5,0.5" Height="37" Width="71" >
                 <TextBlock.RenderTransform>
@@ -39,6 +44,9 @@
                     </TransformGroup>
                 </TextBlock.RenderTransform>←elevator→</TextBlock>
 
+            --><!--<TextBlock Name="televator" Text="{Binding ElementName=Elevator, Path=Elevator, StringFormat=N2}" 
+                   Height="32" Width="40" FontSize="10" Canvas.Left="295" Canvas.Top="10"/>--><!--
+            
             <TextBlock  Canvas.Left="-57" Canvas.Top="161" FontStyle="Italic" RenderTransformOrigin="0.5,0.5"  >
 
                 <TextBlock.RenderTransform>
@@ -48,7 +56,7 @@
                         <RotateTransform Angle="90.452"/>
                         <TranslateTransform/>
                     </TransformGroup>
-                </TextBlock.RenderTransform>←throttle→</TextBlock>
+                </TextBlock.RenderTransform>←throttle→</TextBlock>-->
 
             <Ellipse HorizontalAlignment="Left" Height="340" VerticalAlignment="Top" Width="340">
                 <Ellipse.Fill>

@@ -72,16 +72,16 @@ namespace FlightSimulator.ViewModels
             this.Parser(this.data);
             //if (!this.isConnect)
             //{
-                  
+
             //    //SingeltonCommand.Instance.connectServer();
             //    this.isConnect = true;
             //}
+            FromUser = "";
             if (SingeltonCommand.Instance.GetIsConnect())
             {
                 SingeltonCommand.Instance.setAoutInfo(this.myCommands);
             }
            
-
         }
 
         public ICommand _connectCommand;
