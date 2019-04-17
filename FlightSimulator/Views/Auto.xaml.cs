@@ -20,7 +20,7 @@ namespace FlightSimulator.Views
     /// </summary>
     public partial class Auto : UserControl
     {
-        //public Auto(Command com)
+        
         public Auto()
 
         {

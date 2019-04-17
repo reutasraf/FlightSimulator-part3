@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,10 @@ namespace FlightSimulator.ViewModels
 {
     class ViewModelPopUp
     {
+        // ICommand for the popup of the settings.
         private ICommand _settingsCommand;
+        // ICommand for the disconnect button.
+        private ICommand closeCommand;
         private bool alredyConnect;
 
         public ViewModelPopUp()
@@ -22,7 +26,6 @@ namespace FlightSimulator.ViewModels
         {
             get
             {
-                Console.WriteLine("_----------------------");
                 return _settingsCommand ?? (_settingsCommand =
                 new CommandHandler(() => OnClick()));
             }
@@ -31,11 +34,27 @@ namespace FlightSimulator.ViewModels
 
             }
         }
+
+        public ICommand DisConnectClick
+        {
+            get
+            {
+
+                return closeCommand ?? (closeCommand =
+               new CommandHandler(() => close()));
+
+            }
+        }
+
+
         private void OnClick()
         {
             PopUp p = new PopUp();
+            // show the popup window
             p.ShowDialog();
         }
+
+        // ICommand for the connect to listen to the flight
         private ICommand _listenCommand;
         public ICommand ListenCommand
         {
@@ -51,21 +70,34 @@ namespace FlightSimulator.ViewModels
         }
         private void ToConnect()
         {
-
+            // only if not connected- connect.
             if (!this.alredyConnect)
             {
-                SingeltonServer.Instance.openServer();
-                SingeltonCommand.Instance.connectServer();
+                this.open();
                 this.alredyConnect = true;
             }
             else
             {
-
-                SingeltonServer.Instance.openServer();
-                SingeltonCommand.Instance.connectServer();
-                this.alredyConnect = true;
+                return;
             }
 
+        }
+
+        // open the connection- the Info and the command
+        private void open()
+        {
+            SingeltonServer.Instance.openServer();
+            SingeltonCommand.Instance.connectServer();
+        }
+
+        // close the connection.
+        private void close()
+        {
+            if (SingeltonCommand.Instance.GetIsConnect())
+            {
+                SingeltonCommand.Instance.close();
+                SingeltonServer.Instance.close();
+            }
         }
     }
 

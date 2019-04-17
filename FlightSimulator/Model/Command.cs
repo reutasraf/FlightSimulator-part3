@@ -18,10 +18,13 @@ namespace FlightSimulator
         public Dictionary<string, double> pathRead = new Dictionary<string, double>();
         public Dictionary<string, string> dict = new Dictionary<string, string>();
         TcpClient client;
+        TcpListener server;
         NetworkStream ns;
         private bool IsConnect;
+       
 
         public Command(){
+
             IsConnect = false;
             this.setNewMap();
             }
@@ -29,15 +32,14 @@ namespace FlightSimulator
 
         public void connectServer()
         {
-         
             
-                IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 5402);
-                this.client = new TcpClient();
-                this.client.Connect(ep);
-                Console.WriteLine("You are connected");
-                this.ns = client.GetStream();
-            
-            IsConnect = true;
+            IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 5402);
+            this.server = new TcpListener(ep);
+            this.client = new TcpClient();
+            this.client.Connect(ep);
+              Console.WriteLine("You are connected");
+            this.ns = client.GetStream();
+            this.IsConnect = true;
 
         }
         public  bool GetIsConnect()
@@ -68,41 +70,54 @@ namespace FlightSimulator
 
         }
 
-        public void setAoutInfo(List <List<string>> path)
+        public void setAoutInfo(List <List<string>> s)
         {
-            Thread thread = new Thread(() =>
-              {
-                  if (path.Count != 0)
-                  {
-                      using (NetworkStream stream = new NetworkStream(client.Client, false))
-                      using (BinaryWriter writer = new BinaryWriter(stream))
-                      {
-                          while (path.Count != 0)
-                          {
-                              List<string> thePath = path[0];
-                              thePath.Add("\r\n");
-                              path.RemoveAt(0);
-                              string realPath = "";
-                              int i = 0;
-                              while (thePath.Count > 0)
-                              {
-                                  realPath = realPath + thePath[i];
-                                  i++;
+            {
 
-                              }
-                              byte[] data = System.Text.Encoding.ASCII.GetBytes(realPath);
-                              Console.WriteLine(realPath);
-                              writer.Write(data);
-                              writer.Flush();
-                            //wait two sec
-                            Thread.Sleep(2000);
-                          }
-                      }
-                  }
+                Thread thread = new Thread(() =>
+                {
+                    if (s.Count != 0)
+                    {
+                        using (NetworkStream stream = new NetworkStream(this.client.Client, false))
+                        using (BinaryWriter writer = new BinaryWriter(stream))
+                        {
 
-              });thread.Start();
+                            while (s.Count != 0)
+                            {
+                                List<string> temp = s[0];
+                                temp.Add("\r\n");
+                                s.RemoveAt(0);
+                                string path = this.Concat(temp);
+
+                                byte[] data = System.Text.Encoding.ASCII.GetBytes(path);
+                                Console.WriteLine(path);
+                                writer.Write(data);
+                                writer.Flush();
+                                Thread.Sleep(2000);
+                            }
+                        }
+                    }
 
 
+                }); thread.Start();
+            }
+        }
+
+        private string Concat(List<String> thePath)
+        {
+            string r = "";
+            for (int i = 0; i < thePath.Count; i++)
+            {
+                r += thePath[i];
+            }
+            return r;
+        }
+
+
+        public void close()
+        {
+            this.client.Close();
+            this.server.Stop();
         }
 
     }

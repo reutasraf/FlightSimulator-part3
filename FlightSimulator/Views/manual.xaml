@@ -84,14 +84,14 @@
                 </TransformGroup>
             </TextBlock.RenderTransform>←throttle→</TextBlock>-->
 
-        <TextBlock x:Name="eleVal" Text="{Binding ElementName=Joys, Path=Elevator, StringFormat=N2}" Grid.Column="4" Grid.Row="1" FontSize="12" FontWeight="DemiBold">
+        <TextBlock x:Name="eleVal" Width="35" Text="{Binding ElementName=Joys, Path=Elevator, StringFormat=N2}" Grid.Column="4" Grid.Row="1" FontSize="12" FontWeight="DemiBold">
             <TextBlock.LayoutTransform>
                 <RotateTransform Angle="90"/>
             </TextBlock.LayoutTransform>
         </TextBlock>
 
-       <TextBlock x:Name="ailVal" Text="{Binding ElementName=Joys, Path=Aileron, StringFormat=N2}" 
-                   FontSize="12" FontWeight="DemiBold" Width="40" Grid.Column="3" Grid.Row="0"/>
+        <TextBlock x:Name="ailVal" Width="35" Text="{Binding ElementName=Joys, Path=Aileron, StringFormat=N2}" 
+                   FontSize="12" FontWeight="DemiBold" Grid.Column="3" Grid.Row="0"/>
 
    
     </Grid>

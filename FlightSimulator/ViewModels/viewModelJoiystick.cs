@@ -55,8 +55,7 @@ namespace FlightSimulator.ViewModels
                 List<string> list = new List<string>();
                 list.Add("rudder");
                 list.Add(value);
-                //this.rudder= value;
-                //SingeltonCommand.Instance.connectServer();
+               
                 //if it already connect-set the info
                 if (SingeltonCommand.Instance.GetIsConnect())
                 {

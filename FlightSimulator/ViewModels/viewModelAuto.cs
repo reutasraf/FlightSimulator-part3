@@ -10,13 +10,16 @@ namespace FlightSimulator.ViewModels
 {
     class viewModelAuto : BaseNotify
     {
-        private bool isConnect=false;
+        private bool isConnect;
         //public Command com=new Command();
         private List<List<string>> myCommands = new List<List<string>>();
         private int count;
         private string data="";
+
         public viewModelAuto()
         {
+           
+            this.isConnect = false;
             count = 0;
         }
        
@@ -70,18 +73,15 @@ namespace FlightSimulator.ViewModels
         private void OkCommand()
         {
             this.Parser(this.data);
-            //if (!this.isConnect)
-            //{
-
-            //    //SingeltonCommand.Instance.connectServer();
-            //    this.isConnect = true;
-            //}
-            FromUser = "";
+          
+    
             if (SingeltonCommand.Instance.GetIsConnect())
             {
                 SingeltonCommand.Instance.setAoutInfo(this.myCommands);
+                FromUser = "";
             }
            
+
         }
 
         public ICommand _connectCommand;
@@ -111,34 +111,6 @@ namespace FlightSimulator.ViewModels
         }
         
 
-        //private ICommand _sendCommand;
-        //public ICommand SendCommand
-        //{
-        //    get
-        //    {
-        //        return _sendCommand ?? (_sendCommand =
-        //        new CommandHandler(() => ClickSend()));
-        //    }
-        //}
-        //private void ClickSend()
-        //{
-        //    //client.toSimo(commantFromUser);
-        //    NotifyPropertyChanged("ColorCange");
-        //    CommentFromUser = "";
-        //}
-        
-        //public ICommand WriteCommand
-        //{
-        //    get
-        //    {
-        //        return _clearCommand ?? (_clearCommand =
-        //        new CommandHandler(() => UserWrite()));
-        //    }
-        //}
-        //private void UserWrite()
-        //{
-
-        //}
 
         private void Parser(string s)
         {
