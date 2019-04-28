@@ -16,10 +16,8 @@ namespace FlightSimulator.ViewModels
         private double elevator;
         private string rudder;
         private string throttle;
-        //private Command command=new Command();
-         
         
-
+        //the Elevator property
         public double Elevator {
             get
             {
@@ -40,7 +38,7 @@ namespace FlightSimulator.ViewModels
 
                 arg.Add("elevator");
                 arg.Add(elevator.ToString());
-
+                //check if connect alreadyand than set the info
                 if (SingeltonCommand.Instance.GetIsConnect())
                 {
                     SingeltonCommand.Instance.setInfo(arg);
@@ -55,15 +53,16 @@ namespace FlightSimulator.ViewModels
                 List<string> list = new List<string>();
                 list.Add("rudder");
                 list.Add(value);
-               
-                //if it already connect-set the info
+
+                //check if connect alreadyand than set the info
                 if (SingeltonCommand.Instance.GetIsConnect())
                 {
                     SingeltonCommand.Instance.setInfo(list);
                 }
-                //command.setInfo(list);
+                
 
             } }
+        //the Throttle property
         public string Throttle {
             set
             {
@@ -80,7 +79,7 @@ namespace FlightSimulator.ViewModels
             }
         }
 
-
+        //the aileron property
         public double Aileron
         {
             get
@@ -111,8 +110,7 @@ namespace FlightSimulator.ViewModels
         }
         public void SaveSettings1(RoutedPropertyChangedEventArgs<double> e)
         {
-            //this.command = new Command();
-            //this.command.connectClient();
+            
             string val = e.NewValue.ToString();
             this.Rudder = val;
         }

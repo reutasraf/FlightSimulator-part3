@@ -24,12 +24,12 @@ namespace FlightSimulator
        
 
         public Command(){
-
+            //flag check if connect already
             IsConnect = false;
             this.setNewMap();
             }
 
-
+        //connect to server
         public void connectServer()
         {
             
@@ -37,18 +37,19 @@ namespace FlightSimulator
             this.server = new TcpListener(ep);
             this.client = new TcpClient();
             this.client.Connect(ep);
-              Console.WriteLine("You are connected");
+              //Console.WriteLine("You are connected");
             this.ns = client.GetStream();
             this.IsConnect = true;
 
         }
-        public  bool GetIsConnect()
+        //return true if connect already otherwite false
+        public bool GetIsConnect()
         {
             return this.IsConnect;
         }
 
         
-    
+        //set to the airplane with the path
         private void setNewMap()
         {
             this.dict.Add("aileron","/controls/flight/aileron" );
@@ -56,7 +57,7 @@ namespace FlightSimulator
             this.dict.Add("rudder","/controls/flight/rudder");
             this.dict.Add("throttle","/controls/engines/current-engine/throttle");
         }
-
+        //set the info to airplane
         public void setInfo(List<string> path)
         {
             string p = "set ";
@@ -69,7 +70,7 @@ namespace FlightSimulator
             this.ns.Write(byteTime, 0, byteTime.Length);
 
         }
-
+        //set the info to airplane(the auto)
         public void setAoutInfo(List <List<string>> s)
         {
             {
@@ -102,7 +103,7 @@ namespace FlightSimulator
                 }); thread.Start();
             }
         }
-
+        //concat the path
         private string Concat(List<String> thePath)
         {
             string r = "";

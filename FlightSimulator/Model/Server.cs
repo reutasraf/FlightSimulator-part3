@@ -16,6 +16,7 @@ namespace FlightSimulator.Model
 {
     public class Server
     {
+        //flag to check if need to stop
         private bool shouldStop;
         private float lon;
         private float lat;
@@ -31,7 +32,7 @@ namespace FlightSimulator.Model
 
         }
 
-        // Property of Lon
+        // property of Lon
         public float Lon
         {
             get { return lon; }
@@ -42,7 +43,7 @@ namespace FlightSimulator.Model
             }
         }
 
-        // Property of Lat
+        // property of Lat
         public float Lat
         {
             get { return lat; }
@@ -71,6 +72,7 @@ namespace FlightSimulator.Model
 
             return new string(buffer);
         }
+        //open the server
         public void openServer()
         {
             IPEndPoint ep = new IPEndPoint(IPAddress.Parse(Properties.Settings.Default.FlightServerIP),
@@ -84,7 +86,7 @@ namespace FlightSimulator.Model
             this.thread = new Thread(() => listenFlight(server, clientSocket));
             thread.Start();
         }
-
+        //listen to the airplane
         private void listenFlight(TcpListener server, TcpClient clientSocket)
         {
             NetworkStream stream = clientSocket.GetStream();
@@ -108,9 +110,7 @@ namespace FlightSimulator.Model
 
 
         }
-        /**
-         * close the socket.
-         * */
+        // close the socket
         public void close()
         {
             this.shouldStop = true;

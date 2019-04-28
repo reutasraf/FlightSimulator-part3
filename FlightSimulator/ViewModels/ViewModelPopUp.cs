@@ -21,7 +21,7 @@ namespace FlightSimulator.ViewModels
         {
             this.alredyConnect = false;
         }
-
+        //the setting commands
         public ICommand SettingsCommand
         {
             get
@@ -34,7 +34,7 @@ namespace FlightSimulator.ViewModels
 
             }
         }
-
+        //the disconnect buttom
         public ICommand DisConnectClick
         {
             get
@@ -54,7 +54,7 @@ namespace FlightSimulator.ViewModels
             p.ShowDialog();
         }
 
-        // ICommand for the connect to listen to the flight
+        // connect to listen to the flight
         private ICommand _listenCommand;
         public ICommand ListenCommand
         {
@@ -83,14 +83,14 @@ namespace FlightSimulator.ViewModels
 
         }
 
-        // open the connection- the Info and the command
+        // open the connection- info and the command
         private void open()
         {
             SingeltonServer.Instance.openServer();
             SingeltonCommand.Instance.connectServer();
         }
 
-        // close the connection.
+        // close the connection
         private void close()
         {
             if (SingeltonCommand.Instance.GetIsConnect())

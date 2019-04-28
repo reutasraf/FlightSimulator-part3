@@ -23,7 +23,7 @@ namespace FlightSimulator.ViewModels
             count = 0;
         }
        
-
+        //the text the user write to the screen
         private String fromUser="";
         public String FromUser
         {
@@ -46,6 +46,7 @@ namespace FlightSimulator.ViewModels
             }
         }
 
+        //take care of the color of the screen
         private String color;
         public String ColorCange
         {
@@ -70,11 +71,13 @@ namespace FlightSimulator.ViewModels
             }
             
         }
+        //the ok buttom
         private void OkCommand()
         {
+            //sent to the parser
             this.Parser(this.data);
           
-    
+            //check if connect
             if (SingeltonCommand.Instance.GetIsConnect())
             {
                 SingeltonCommand.Instance.setAoutInfo(this.myCommands);
@@ -83,7 +86,7 @@ namespace FlightSimulator.ViewModels
            
 
         }
-
+        //connect to the airplane
         public ICommand _connectCommand;
         public ICommand ConnectCommand
         {
@@ -95,7 +98,7 @@ namespace FlightSimulator.ViewModels
             }
         }
 
-        
+        //clear the screen
         private ICommand _clearCommand; 
         public ICommand ClearCommand
         {
@@ -111,7 +114,7 @@ namespace FlightSimulator.ViewModels
         }
         
 
-
+        //parser to the line
         private void Parser(string s)
         {
             int listIndex = this.myCommands.Count;
@@ -140,7 +143,7 @@ namespace FlightSimulator.ViewModels
 
                     }
                     this.myCommands.Add(oneList);
-                    //oneList.Clear();
+                    
                     oneList = new List<string>();
                     temp = "";
                     i += 1;

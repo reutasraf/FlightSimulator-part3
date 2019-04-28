@@ -7,6 +7,7 @@ using FlightSimulator.Model;
 
 namespace FlightSimulator
 {
+    //singelton class to the server
     class SingeltonServer
     {
 
@@ -15,6 +16,7 @@ namespace FlightSimulator
         {
             get
             {
+                //if not exist create it
                 if (m_Instance == null)
                 {
                     m_Instance = new Server();
